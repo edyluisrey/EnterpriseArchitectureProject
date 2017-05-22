@@ -5,12 +5,15 @@
 	xmlns:context="http://www.springframework.org/schema/context"
    xmlns:tx="http://www.springframework.org/schema/tx"
    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+   xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="
       http://www.springframework.org/schema/beans 
       http://www.springframework.org/schema/beans/spring-beans.xsd
  	  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-      http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+      http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop.xsd">
  
  <context:property-placeholder location="classpath:application.properties" />
   
@@ -46,9 +49,12 @@
    
    <!-- Scan for  transaction-based resources -->
    	<context:component-scan base-package="edu.mum.service,edu.mum.dao" />
-  
+     
     <tx:annotation-driven transaction-manager="transactionManager"/>
- 
+   
+    <!-- AOP-->
+    <aop:aspectj-autoproxy />
+    
    <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
  
