@@ -19,7 +19,6 @@ public class TestACacheAOP {
 		 AuditService auditService = (AuditService) ctx.getBean("auditServiceImpl");
 		 auditService.findAll();
 		 
-
 	}
 
 }
