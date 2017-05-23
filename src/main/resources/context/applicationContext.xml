@@ -17,47 +17,56 @@
  
  <context:property-placeholder location="classpath:application.properties" />
   
-   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-      <property name="dataSource" ref="dataSource" />
-      <property name="packagesToScan" value="edu.mum.domain" />
-      <property name="jpaVendorAdapter">
-         <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
-      </property>
-      <property name="jpaProperties">
-         <props>
-            <prop key="hibernate.hbm2ddl.auto">create</prop>
-            <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-            <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
- 			<prop key="use_sql_comments">${use_sql_comments}</prop>
- 			<prop key="hibernate.format_sql">${hibernate.format_sql}</prop> 
-             <prop key="hibernate.hbm2ddl.import_files">populate.sql</prop>
-          </props>
-      </property>
-   </bean>
+<!--    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> -->
+<!--       <property name="dataSource" ref="dataSource" /> -->
+<!--       <property name="packagesToScan" value="edu.mum.domain" /> -->
+<!--       <property name="jpaVendorAdapter"> -->
+<!--          <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" /> -->
+<!--       </property> -->
+<!--       <property name="jpaProperties"> -->
+<!--          <props> -->
+<!--             <prop key="hibernate.hbm2ddl.auto">create</prop> -->
+<!--             <prop key="hibernate.dialect">${hibernate.dialect}</prop> -->
+<!--             <prop key="hibernate.show_sql">${hibernate.show_sql}</prop> -->
+<!--  			<prop key="use_sql_comments">${use_sql_comments}</prop> -->
+<!--  			<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>  -->
+<!--              <prop key="hibernate.hbm2ddl.import_files">populate.sql</prop> -->
+<!--           </props> -->
+<!--       </property> -->
+<!--    </bean> -->
   
- 	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-	</bean>
+<!--  	<bean id="dataSource" -->
+<!-- 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 		<property name="driverClassName" value="${jdbc.driverClassName}" /> -->
+<!-- 		<property name="url" value="${jdbc.url}" /> -->
+<!-- 		<property name="username" value="${jdbc.username}" /> -->
+<!-- 		<property name="password" value="${jdbc.password}" /> -->
+<!-- 	</bean> -->
 
-   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-      <property name="entityManagerFactory" ref="entityManagerFactory" />
-   </bean>
+<!--    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"> -->
+<!--       <property name="entityManagerFactory" ref="entityManagerFactory" /> -->
+<!--    </bean> -->
    
-   <!-- Scan for  transaction-based resources -->
-   	<context:component-scan base-package="edu.mum.service,edu.mum.dao" />
+   <!-- Scan for  transaction-based resources --> 
+   <context:component-scan base-package="edu.mum" />
      
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-   
+<!--     <tx:annotation-driven transaction-manager="transactionManager"/> -->
+    
+<!--     <bean id="persistenceExceptionTranslationPostProcessor" -->
+<!--       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /> -->
+      
     <!-- AOP-->
     <aop:aspectj-autoproxy />
     
-   <bean id="persistenceExceptionTranslationPostProcessor"
-      class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
- 
+    <!-- ehcache-->
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+    	<property name="configLocation" value="classpath:ehcache.xml"></property>
+	</bean>
 
+	<bean id="methodCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+	    <property name="cacheManager" ref= "cacheManager" />
+	    <property name="cacheName" value="defaultCache"/>
+	</bean>
+        
  
 </beans>
