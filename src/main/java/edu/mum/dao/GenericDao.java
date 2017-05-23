@@ -22,9 +22,4 @@ public interface GenericDao<T> {
     T update(T t);   
     
     List<T> findAll();
-
-	public List<T> findAll(String s,Object  hint );
-
-    
-    
 }

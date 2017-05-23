@@ -53,11 +53,4 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	      return entityManager.merge( entity );
 	   }
 
- 	@Override
-	public List<T> findAll(String s,Object  hint ){
- 	    return (List<T>)  entityManager.createQuery("SELECT m FROM Member AS m") 
- 	    		.setHint(s,hint).getResultList();
-  	}
-	
-
  }
