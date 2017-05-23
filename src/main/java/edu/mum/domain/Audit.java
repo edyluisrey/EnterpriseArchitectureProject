@@ -2,8 +2,16 @@ package edu.mum.domain;
 
 import java.util.Date;
 
-public class Audit {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class Audit {
+    
+	 @Id 
+	 @GeneratedValue(strategy=GenerationType.AUTO)
 	 private long id;
 	 
 	 private String who;

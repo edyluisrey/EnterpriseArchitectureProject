@@ -1,15 +1,13 @@
 package edu.mum.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import edu.mum.domain.Audit;
-import edu.mum.service.AuditService;
 
-@Service
-public class AuditServiceImpl implements AuditService{
+@Service 
+public class AuditServiceImpl implements edu.mum.service.AuditService{
 
 
 	public void save(Audit audit) {
@@ -24,18 +22,8 @@ public class AuditServiceImpl implements AuditService{
 	}
 
 
-	public List<Audit> findAll() {
-		// TODO Auto-generated method stub
-		 System.out.println("findAll == init");
-		    
-		 List<Audit> list = new ArrayList<>();		    
-		 for (int i = 0; i < 10; i++) {
-			 Audit audit = new Audit();
-			 audit.setWho("edy"+i);
-			 list.add(audit);
-			 
-		 }
-		 System.out.println("findAll == return");
+	public List<Audit> findAll() {		    
+		
 		return null;
 	}
 
