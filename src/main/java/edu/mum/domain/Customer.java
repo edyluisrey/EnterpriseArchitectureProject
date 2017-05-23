@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import edu.mum.domain.status.CustomerStatus;
 
@@ -33,7 +35,8 @@ public class Customer {
 	@Column(name = "passport")
 	private String passport;
 	
-	@Column(name = "address")
+	@OneToOne(fetch=FetchType.EAGER,  cascade = CascadeType.ALL) 
+	@JoinColumn(name="customerId") 
 	private Address address;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
