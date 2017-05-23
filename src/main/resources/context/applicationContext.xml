@@ -48,8 +48,10 @@
    </bean>
    
    <!-- Scan for  transaction-based resources --> 
-    <context:component-scan base-package="edu.mum" />
-     
+    <context:component-scan base-package="edu.mum,edu.mum.service,edu.mum.dao">
+        <context:include-filter type="aspectj" expression="edu.mum.*" />
+    </context:component-scan>
+        
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
     <bean id="persistenceExceptionTranslationPostProcessor"
