@@ -1,5 +1,12 @@
-test
+Technologies
 
-Edy
-Dora
-..
+Annotation Driven
+Hibernate Persistence [JPA]
+EMail
+AOP
+EHCACHE
+REST - security
+Security ; Login, Authorization
+Messaging [ JMS/AMQP]
+MVC
+Batch
