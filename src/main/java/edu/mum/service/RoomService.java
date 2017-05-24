@@ -10,12 +10,12 @@ import edu.mum.domain.Room;
 public interface RoomService {
 	
 	public void save(Room Room);
-	@PreAuthorize("ROLE_ADMIN")
+	
 	public void update(Room Room);
 	
-	@PreAuthorize("ROLE_ADMIN")
+	
 	public void delete(Room Room);
-	@Secured("ROLE_ADMIN")
+	
 	public void deleteById(Long RoomId);
 	
 	public Room findRoomById(Long RoomId);
