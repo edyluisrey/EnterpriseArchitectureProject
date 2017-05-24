@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ import edu.mum.domain.User;
 import edu.mum.domain.UserCredential;
 import edu.mum.domain.status.CustomerStatus;
 import edu.mum.domain.status.ReservationStatus;
+import edu.mum.security.AuthenticateUser;
 import edu.mum.service.CustomerService;
 import edu.mum.service.GroupService;
 import edu.mum.service.ReservationService;
@@ -111,58 +113,66 @@ public class TestServiceLayer {
 	}
 	
 	public void testAddDefaultData() {
-		RoomType familyType = new RoomType();
-		familyType.setRoomTypeName("Family");
-		RoomType doubleType = new RoomType();
-		doubleType.setRoomTypeName("Double");
-		
-		roomTypeService.save(familyType);
-		roomTypeService.save(doubleType);
-		
-		Room r001 = new Room();
-		r001.setRoomName("001");
-		r001.setPrice(50.0);
-		r001.setRoomType(familyType);
-		Room r002 = new Room();
-		r002.setRoomName("002");
-		r002.setPrice(25.0);
-		r002.setRoomType(doubleType);
-		roomService.save(r001);
-		roomService.save(r002);	
+//		RoomType familyType = new RoomType();
+//		familyType.setRoomTypeName("Family");
+//		RoomType doubleType = new RoomType();
+//		doubleType.setRoomTypeName("Double");
+//		
+//		roomTypeService.save(familyType);
+//		roomTypeService.save(doubleType);
+//		
+//		Room r001 = new Room();
+//		r001.setRoomName("001");
+//		r001.setPrice(50.0);
+//		r001.setRoomType(familyType);
+//		Room r002 = new Room();
+//		r002.setRoomName("002");
+//		r002.setPrice(25.0);
+//		r002.setRoomType(doubleType);
+//		roomService.save(r001);
+//		roomService.save(r002);	
 		
 		// Get room type
 		//RoomType roomType = roomTypeService.findRoomTypeById((long)1);
 		//System.out.println("Number of room for roomType Family is " + roomType.getRoomTypeName());
 		
-		Customer cus1 = new Customer();
-		cus1.setFirstName("John");
-		cus1.setLastName("Dear");
-		cus1.setCustomerStatus(CustomerStatus.VIP);
-		
-		customerService.save(cus1);
-		
-		Reservation re1 = new Reservation();
-		re1.setReservationStatus(ReservationStatus.NOT_CONFIRMED);
-		re1.setCustomer(customerService.findCustomerById((long)1));
-		re1.addRoom(roomService.findRoomById((long)1));
-		Calendar checkInDate = Calendar.getInstance();
-		checkInDate.set(2015,  05, 24);
-		re1.setCheckInDate(checkInDate.getTime());
-		Calendar checkOutDate = Calendar.getInstance();
-		checkOutDate.set(2015,  05, 26);
-		re1.setCheckOutDate(checkOutDate.getTime());
-		reservationService.save(re1);
+		 Customer  customer = new Customer();
+		 customer.setFirstName("Edy");
+		 customer.setLastName("Aguirre Rest");
+		 customer.setPassport("5677884");
+		 
+		 List<Room> rooms = new ArrayList<>();
+		 Room room= new Room();
+		 room.setFloor("2");
+		 room.setRoomNumber("44");
+		 rooms.add(room);
+		 
+		 Reservation  reservation =  new Reservation();
+		 reservation.setCustomer(customer);
+		 reservation.setRooms(rooms);
+		 reservation.setCheckInDate(new Date());
+		 reservationService.save(reservation);
 	}
 	
 	public static void main(String[] args) {
 			
-		ApplicationContext ctx = new ClassPathXmlApplicationContext(
-		        "context/applicationContext.xml");
-		
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("context/applicationContext.xml",
+	    		"context/batch-config.xml","context/user-job.xml","context/mail-config.xml");
+
+		AuthenticationManager authenticationManager = (AuthenticationManager) ctx.getBean("authenticationManager");
 		TestServiceLayer test = (TestServiceLayer)ctx.getBean("testServiceLayer");
-		test.testUserAuthenticationSaving();
-		test.testAddDefaultData();
-		System.out.println("Test Saving group and related fields!!!");
+		//test.testUserAuthenticationSaving();
+		while (true) {    
+		     AuthenticateUser authenticateUser = new AuthenticateUser();
+		     try {
+		  		authenticateUser.authenticate(authenticationManager);
+		  	} catch (Exception e) {
+		  		// TODO Auto-generated catch block
+		  		e.printStackTrace();
+		  	}
+		    test.testAddDefaultData();
+		    System.out.println("Test Saving group and related fields!!!");
+		}    
 	}
 
 }
