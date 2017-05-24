@@ -15,11 +15,9 @@ public class Authority {
 	private Long id;
 	
 	@Column(name = "username")
-	@Max(value = 30)
 	private String username;
 	
 	@Column(name = "authority")
-	@Max(value = 50)
 	private String authority;
 	
 	public Authority() {
