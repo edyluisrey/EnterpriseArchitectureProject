@@ -25,9 +25,6 @@ public class UserCredential {
 	@Column(name = "enabled")
 	private boolean enabled;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	private List<Group> groups = new ArrayList<>();
-
 	public UserCredential() {
 		
 	}
@@ -62,14 +59,6 @@ public class UserCredential {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-	}
-
-	public List<Group> getGroups() {
-		return groups;
-	}
-
-	public void setGroups(List<Group> groups) {
-		this.groups = groups;
 	}
 	
 }
