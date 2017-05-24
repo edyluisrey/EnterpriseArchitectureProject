@@ -13,9 +13,26 @@
       Does NOT recognize WEB Application level components - for THAT  need to place enable line in Dispatcher-servlet-->
 	<security:global-method-security pre-post-annotations="enabled"/>	
  
- 
+    <!-- Stateless RESTful services use BASIC authentication -->
+    <security:http create-session="stateless" pattern="/api/**" use-expressions="true">
+        <security:intercept-url pattern="/**" access="hasRole('ROLE_REST')"/>
+        <security:http-basic/>
+        <security:csrf disabled="true"/>
+      </security:http>
+      
+    <security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider>
+ 			<security:user-service>
+				<security:user name="admin" password="admin" authorities="ROLE_ADMIN" />
+				<security:user name="guest" password="guest" authorities="ROLE_USER" />
+				<security:user name="rest" password="rest" authorities="ROLE_REST" />
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
 	<security:http use-expressions="true">
-
+     
+     
  	<!-- BASIC login -->
  <!-- 	 		<security:form-login />  
   -->	
@@ -47,16 +64,16 @@
 		<security:csrf disabled="true"/>
  	</security:http>
 	
- <!-- Database security "custom queries are because we have used our own schema...	-->
-	<security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider>
-			<security:password-encoder hash="bcrypt" />
-			<security:jdbc-user-service
-				data-source-ref="dataSource"
-				users-by-username-query="select username,password,enabled from credentials where username=?"
-				authorities-by-username-query="select u1.username, u2.authority from credentials u1, authority u2 where u1.username = u2.username and u1.username =?" />
-		</security:authentication-provider>
-	</security:authentication-manager>
+     <!-- Database security "custom queries are because we have used our own schema...	--> 
+<!-- 	<security:authentication-manager alias="authenticationManager"> -->
+<!-- 		<security:authentication-provider> -->
+<!-- 			<security:password-encoder hash="bcrypt" /> -->
+<!-- 			<security:jdbc-user-service -->
+<!-- 				data-source-ref="dataSource" -->
+<!-- 				users-by-username-query="select username,password,enabled from credentials where username=?" -->
+<!-- 				authorities-by-username-query="select u1.username, u2.authority from credentials u1, authority u2 where u1.username = u2.username and u1.username =?" /> -->
+<!-- 		</security:authentication-provider> -->
+<!-- 	</security:authentication-manager> -->
 
 
  </beans>

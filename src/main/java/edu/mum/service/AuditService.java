@@ -8,6 +8,6 @@ public interface AuditService {
 	public void save(Audit audit);
 	public void update(Audit audit);
 	public List<Audit> findAll();
- 
 	public Audit findOne(Long id);
+	public Audit findByEmail(String email);
 }
