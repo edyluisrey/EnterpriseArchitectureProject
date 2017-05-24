@@ -48,7 +48,6 @@ public class TestRestFull {
 		 reservation.setCustomer(customer);
 		 reservation.setRooms(rooms);
 		 reservation.setCheckInDate(new Date());
-		// reservationService.save(reservation);
 		 
 		 System.out.println( "   **********  RESTFULL WITH SECURITY  **********");
 		 System.out.println( "        ********** REST: Create  Reservation**********");
