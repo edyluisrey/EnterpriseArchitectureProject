@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Address {
 
@@ -17,6 +19,7 @@ public class Address {
 	private Long id;
 	
 	@Column(name = "street")
+	@NotEmpty
 	private String street;
 	
 	@Column(name = "zipCode")
