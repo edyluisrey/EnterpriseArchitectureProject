@@ -113,24 +113,24 @@ public class TestServiceLayer {
 	}
 	
 	public void testAddDefaultData() {
-//		RoomType familyType = new RoomType();
-//		familyType.setRoomTypeName("Family");
-//		RoomType doubleType = new RoomType();
-//		doubleType.setRoomTypeName("Double");
+		RoomType familyType = new RoomType();
+		familyType.setRoomTypeName("Family");
+		RoomType doubleType = new RoomType();
+		doubleType.setRoomTypeName("Double");
+		
+		roomTypeService.save(familyType);
+		roomTypeService.save(doubleType);
 //		
-//		roomTypeService.save(familyType);
-//		roomTypeService.save(doubleType);
-//		
-//		Room r001 = new Room();
-//		r001.setRoomName("001");
-//		r001.setPrice(50.0);
-//		r001.setRoomType(familyType);
-//		Room r002 = new Room();
-//		r002.setRoomName("002");
-//		r002.setPrice(25.0);
-//		r002.setRoomType(doubleType);
-//		roomService.save(r001);
-//		roomService.save(r002);	
+		Room r001 = new Room();
+		r001.setRoomName("001");
+		r001.setPrice(50.0);
+		r001.setRoomType(familyType);
+		Room r002 = new Room();
+		r002.setRoomName("002");
+		r002.setPrice(25.0);
+		r002.setRoomType(doubleType);
+		roomService.save(r001);
+		roomService.save(r002);	
 		
 		// Get room type
 		//RoomType roomType = roomTypeService.findRoomTypeById((long)1);
@@ -142,9 +142,10 @@ public class TestServiceLayer {
 		 customer.setPassport("5677884");
 		 
 		 List<Room> rooms = new ArrayList<>();
-		 Room room= new Room();
-		 room.setFloor("2");
-		 room.setRoomNumber("44");
+//		 Room room= new Room();
+//		 room.setFloor("2");
+//		 room.setRoomNumber("44");
+		 Room room = roomService.findRoomById((long)1);
 		 rooms.add(room);
 		 
 		 Reservation  reservation =  new Reservation();
@@ -156,10 +157,12 @@ public class TestServiceLayer {
 	
 	public static void main(String[] args) {
 			
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("context/applicationContext.xml",
-	    		"context/batch-config.xml","context/user-job.xml","context/mail-config.xml");
+		ApplicationContext ctx = new ClassPathXmlApplicationContext(
+		        "context/applicationContext.xml", "context/mail-config.xml" ,"context/batch-config.xml" ,"context/user-job.xml", "context/security-Context.xml" );
+//		ApplicationContext ctx = new ClassPathXmlApplicationContext(
+//		        "context/applicationContext.xml", "context/security-context.xml" );
 
-		AuthenticationManager authenticationManager = (AuthenticationManager) ctx.getBean("authenticationManager");
+		 AuthenticationManager authenticationManager = (AuthenticationManager) ctx.getBean("authenticationManager");
 		TestServiceLayer test = (TestServiceLayer)ctx.getBean("testServiceLayer");
 		//test.testUserAuthenticationSaving();
 		while (true) {    
