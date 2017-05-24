@@ -35,7 +35,7 @@ public class TestRestFull {
 		 
 		 Customer  customer = new Customer();
 		 customer.setFirstName("Edy");
-		 customer.setLastName("Aguirre");
+		 customer.setLastName("Aguirre Rest");
 		 customer.setPassport("5677884");
 		 
 		 List<Room> rooms = new ArrayList<>();
@@ -48,10 +48,14 @@ public class TestRestFull {
 		 reservation.setCustomer(customer);
 		 reservation.setRooms(rooms);
 		 reservation.setCheckInDate(new Date());
-		 reservationService.save(reservation);
+		// reservationService.save(reservation);
 		 
 		 System.out.println( "   **********  RESTFULL WITH SECURITY  **********");
-		 System.out.println( "        ********** List Reservations  **********");
+		 System.out.println( "        ********** REST: Create  Reservation**********");
+		 reservationRestService.save(reservation);
+		 System.out.println( "  ok");
+		 
+		 System.out.println( "        ********** REST: List Reservations  **********");
 		 List<Reservation> listReservation = (List<Reservation> ) reservationRestService.findAll();
 		 for(Reservation tempReservation: listReservation){
 			 System.out.println("*** Reserved for:"+ tempReservation.getCustomer().getFirstName() + 
