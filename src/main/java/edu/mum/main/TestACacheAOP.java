@@ -19,7 +19,7 @@ public class TestACacheAOP {
 	
 	public static void main(String[] args) {
 	  ApplicationContext ctx = new ClassPathXmlApplicationContext(
-		        "context/applicationContext.xml", "context/mail-config.xml" ,"context/batch-config.xml" ,"context/user-job.xml", "context/security-context.xml" );
+		        "context/applicationContext.xml", "context/security-context.xml" );
 	  
 	  AuthenticationManager authenticationManager = (AuthenticationManager) ctx.getBean("authenticationManager");
 		
