@@ -30,8 +30,7 @@ public class ProductBatch {
 	ReportProcess productProcess;
 	
 //	@Scheduled(fixedDelay= 15000, initialDelay=2000)
-	@Scheduled(cron = "30 2 * * * *")
-//	@Scheduled(cron = "*/5 * * * * *")
+	@Scheduled(cron = "0 0 8-10 * * *")
 	public void startjob() throws  Exception {
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
