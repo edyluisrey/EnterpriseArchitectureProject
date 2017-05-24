@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Template for Order email </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+    
+    <div style="font-size:20px"><em>What ever you need ---</em>
+           <div style="text-indent: 8em;">
+            <img src="cid:imtheguy"  height="80" width="80" /><em>  .com</em>
+   		  </div> 
+    </div>
+        <p th:text="#{greeting(${name})}"/>
+  
+            <H4> We have received your order and are Processing it !</H4>
+  
+        <p>Here are your Order details:</p>
+ 		<b>Report Number: </b> <span th:text="${report.id}"></span>
+ 		
+ 		<!-- 
+         <div th:each="item : ${order.items}" > 
+		  	<div style="text-indent: 3em;">		
+			 		<p><b>Product: </b> <span th:text="${item.product.name}"></span></p>
+			 		<p><b>Quantity: </b> <span th:text="${item.quantity}"></span></p>
+			 		<p><b>Price: </b> <span th:text="${item.product.price}"></span></p>
+			</div>	
+	 		<p><b>Total: </b> <span th:text="${item.quantity} * ${item.product.price}"></span></p>
+		</div>
+		-->
+		
+		<br /><p>
+            As a special bonus, you can find <b>The Alarm Clock Specifications</b> attached to this message.
+        </p>
+		
+         <p><br />
+            Thanks for your order, <br />
+            &emsp; <em><b>I'm the Guy! - Online</b></em>
+        </p>
+    </body>
+</html>
