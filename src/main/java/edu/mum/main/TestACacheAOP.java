@@ -16,11 +16,13 @@ public class TestACacheAOP {
 		        "context/applicationContext.xml");
 		  
 		System.out.println();
-	    System.out.println( "   **********      AUDIT TEST  **********");	
+	    System.out.println( "   **********      AUDIT AOP  **********");	
 		AuditService auditService = (AuditService) ctx.getBean("auditServiceImpl");
 		Long id = (long) 1;
 		auditService.findOne(id);
 		System.out.println("\n");
+		
+		
 		
 	    System.out.println( "   **********      AOP CACHE  **********");
 	    System.out.println("1 call");
