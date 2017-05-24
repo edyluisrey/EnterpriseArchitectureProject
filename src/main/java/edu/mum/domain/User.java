@@ -36,7 +36,7 @@ public class User {
 	@Column(name = "admin")
 	private boolean admin;
 	
-	@OneToOne(fetch=FetchType.LAZY,  cascade = CascadeType.ALL) 
+	@OneToOne(fetch=FetchType.LAZY,  cascade = {CascadeType.MERGE}) 
 	@JoinColumn(name="userId") 
 	private UserCredential userCredential;
 	

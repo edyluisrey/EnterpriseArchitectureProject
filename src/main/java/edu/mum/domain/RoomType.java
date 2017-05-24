@@ -26,7 +26,7 @@ public class RoomType {
 	@Column(name = "description")
 	private String description;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Room> rooms = new ArrayList<>();
 
 	public RoomType() {
