@@ -33,7 +33,7 @@ public class MemberRestServiceImpl implements ReservationRestService {
 	public void save(Reservation reservation) {
 		RestTemplate restTemplate = restHttpHeader.getRestTemplate();
 		HttpEntity<Reservation> httpEntity = new HttpEntity<Reservation>(reservation, restHttpHeader.getHttpHeaders());
-		restTemplate.postForObject("http://localhost:8080/MemberRest/api/reservations/add/", httpEntity, Reservation.class);
+		restTemplate.postForObject("http://localhost:8080/EnterpriseArchitectureProject/api/reservations/add/", httpEntity, Reservation.class);
 	}
 
 	public void updateReservation(Reservation reservation) {

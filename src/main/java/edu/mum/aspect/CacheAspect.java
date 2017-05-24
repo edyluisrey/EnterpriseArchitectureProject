@@ -17,7 +17,7 @@ public class CacheAspect {
 	@Autowired
 	private  CacheManager cm;
 	
-	@Around("execution(* edu.mum.service.impl..findAll(..))")
+	@Around("execution(* edu.mum.service.impl.RoomServiceImpl.findAll(..))")
     public Object cacheMethod(ProceedingJoinPoint point) throws Throwable 
     {       
 		    Cache cache = cm.getCache("defaultCache");

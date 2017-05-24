@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import edu.mum.domain.Audit;
@@ -30,8 +31,8 @@ public class AuditAspect {
 		   
 	    Audit audit = new Audit();
 	    String  target = joinPoint.getSignature().getDeclaringTypeName() + "." +joinPoint.getSignature().getName(); 
-	    Date date = new Date();
-	    audit.setWho("Edy");
+	    Date date = new Date();	    
+	    audit.setWho(SecurityContextHolder.getContext().getAuthentication().getName());
 	    audit.setMethodInvoke(target);
 	    audit.setTime(date);	
 	    auditService.save(audit);
