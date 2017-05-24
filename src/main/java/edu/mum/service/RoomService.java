@@ -19,7 +19,8 @@ public interface RoomService {
 	public void deleteById(Long RoomId);
 	
 	public Room findRoomById(Long RoomId);
-	@Secured({"ROLE_USER", "ROLE_ADMIN"})
+	
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 	public List<Room> findAll();
 	
 }
