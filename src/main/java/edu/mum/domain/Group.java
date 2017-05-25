@@ -12,6 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 @Entity(name = "groups")
 public class Group {
@@ -20,13 +24,17 @@ public class Group {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
 	
-	@Column(name = "groupName")
+	@Column(name = "groupName", length = 255)
+	@NotEmpty
+	@Range(min = 2, max = 255, message = "{Range.field}")
 	private String groupName;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@NotNull(message = "{List.empty}")
 	private List<Authority> authorities = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@NotNull(message = "{List.empty}")
 	private List<UserCredential> userCredentials = new ArrayList<>();
 
 	public Group() {

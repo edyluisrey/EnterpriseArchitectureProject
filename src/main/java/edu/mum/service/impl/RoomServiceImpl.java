@@ -11,6 +11,7 @@ import edu.mum.aspect.annotation.Auditor;
 import edu.mum.dao.RoomDao;
 import edu.mum.domain.Room;
 import edu.mum.service.RoomService;
+import edu.mum.service.RoomTypeService;
 
 @Service
 @Transactional
@@ -21,30 +22,30 @@ public class RoomServiceImpl implements RoomService {
 	
 	@Auditor
 	@Override
-	public void save(Room Room) {
-		RoomDao.save(Room);
+	public void save(Room room) {
+		RoomDao.save(room);
 	}
     
 	@Auditor
 	@Override
-	public void update(Room Room) {
-		RoomDao.update(Room);
+	public void update(Room room) {
+		RoomDao.update(room);
 	}
 	
 	@Auditor
 	@Override
-	public void delete(Room Room) {
-		RoomDao.delete(Room.getId());
+	public void delete(Room room) {
+		RoomDao.delete(room.getId());
 	}
 
 	@Override
-	public void deleteById(Long RoomId) {
-		RoomDao.delete(RoomId);
+	public void deleteById(Long roomId) {
+		RoomDao.delete(roomId);
 	}
 
 	@Override
-	public Room findRoomById(Long RoomId) {
-		return RoomDao.findOne(RoomId);
+	public Room findRoomById(Long roomId) {
+		return RoomDao.findOne(roomId);
 	}
 
 	@Override

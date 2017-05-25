@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 public class Address {
@@ -18,17 +20,22 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "street")
+	@Column(name = "street", length = 255)
 	@NotEmpty
 	private String street;
 	
-	@Column(name = "zipCode")
+	@Column(name = "zipCode", length = 9)
+	@NotEmpty
+	@Range(min = 5, max = 9, message = "{Range.zipCode}")
 	private String zipCode;
 	
-	@Column(name = "city")
+	@Column(name = "city", length = 255)
+	@NotEmpty
 	private String city;
 	
-	@Column(name = "state")
+	@Column(name = "state", length = 255)
+	@NotEmpty
+	@Min(value = 2, message = "{Size.state}")
 	private String state;
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
