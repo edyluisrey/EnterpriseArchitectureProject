@@ -33,12 +33,12 @@ public class Customer implements Serializable {
 	
 	@Column(name = "firstName")
 	@NotEmpty
-	@Range(min = 2, max = 255, message = "{Range.field}")
+	//@Range(min = 2, max = 255, message = "{Range.field}")
 	private String firstName;
 		
 	@Column(name = "lastName")
 	@NotEmpty
-	@Range(min = 2, max = 255, message = "{Range.field}")
+	//@Range(min = 2, max = 255, message = "{Range.field}")
 	private String lastName;
 	
 	@Column(name = "idCard")

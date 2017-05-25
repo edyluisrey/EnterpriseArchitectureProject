@@ -9,6 +9,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import edu.mum.domain.Audit;
 import edu.mum.domain.Customer;
 import edu.mum.domain.Room;
+import edu.mum.domain.status.CustomerStatus;
+import edu.mum.domain.status.RoomStatus;
 import edu.mum.security.AuthenticateUser;
 import edu.mum.service.AuditService;
 import edu.mum.service.CustomerService;
@@ -43,11 +45,16 @@ public class TestACacheAOP {
 			customer.setFirstName("Dorita");
 			customer.setLastName("rita");
 			customer.setPassport("5677d");
+			customer.setCustomerStatus(CustomerStatus.BLOCKED);
 			
 			Room room= new Room();
+			room.setRoomName("Test");
 			room.setDescription("Test Audit");
 			room.setFloor("10");
 			room.setRoomNumber("33");
+			room.setPrice((double)23);
+			room.setRoomStatus(RoomStatus.CHECK_IN);
+			room.setMaxGuest(2);
 			
 			System.out.println( "   ****** Total of elements in audit table before: " + auditService.findAll().size() + " ****");
 			customerService.save(customer);
