@@ -1,5 +1,6 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,35 +12,46 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import edu.mum.domain.status.ReservationStatus;
 
 @Entity
-public class Reservation {
+public class Reservation implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(name = "checkInDate")
+	@NotNull
 	private Date checkInDate;
 	
 	@Column(name = "checkOutDate")
+	@NotNull
 	private Date checkOutDate;
 	
-	@Column(name = "description")
+	@Column(name = "description", length = 255)
 	private String description;
 	
 	@Column(name = "reservationStatus")
+	@NotNull
 	private ReservationStatus reservationStatus;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
 	private Customer customer;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+	@JoinTable(name = "reservation_room", joinColumns = {
+			@JoinColumn(name = "reservation_id")}, 
+			inverseJoinColumns = {@JoinColumn(name = "room_id")})
+	@NotNull
 	private List<Room> rooms = new ArrayList<>();
 
 	public Reservation() {
@@ -92,6 +104,7 @@ public class Reservation {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+		this.customer.getReservations().add(this);
 	}
 
 	public List<Room> getRooms() {
@@ -101,6 +114,5 @@ public class Reservation {
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
-	
 	
 }

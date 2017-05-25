@@ -1,5 +1,6 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,36 +14,51 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 import edu.mum.domain.status.CustomerStatus;
 
 @Entity
-public class Customer {
+public class Customer implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(name = "firstName")
+	@NotEmpty
+	@Range(min = 2, max = 255, message = "{Range.field}")
 	private String firstName;
-	
+		
 	@Column(name = "lastName")
+	@NotEmpty
+	@Range(min = 2, max = 255, message = "{Range.field}")
 	private String lastName;
 	
 	@Column(name = "idCard")
 	private String idCard;
 	
 	@Column(name = "passport")
+	@NotEmpty
+	@Min(value = 10)
 	private String passport;
 	
 	@OneToOne(fetch=FetchType.EAGER,  cascade = CascadeType.ALL) 
 	@JoinColumn(name="customerId") 
+	@Valid
 	private Address address;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	private List<Reservation> reservations = new ArrayList<>();
 	
 	@Column(name = "customerStatus")
+	@NotNull
 	private CustomerStatus customerStatus;
 
 	public Customer() {
