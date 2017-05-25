@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import edu.mum.domain.Customer;
 import edu.mum.domain.Reservation;
 import edu.mum.domain.Room;
+import edu.mum.domain.status.CustomerStatus;
+import edu.mum.domain.status.RoomStatus;
 import edu.mum.rest.client.service.ReservationRestService;
 import edu.mum.service.ReservationService;
 
@@ -37,11 +39,17 @@ public class TestRestFull {
 		 customer.setFirstName("Edy");
 		 customer.setLastName("Aguirre Rest");
 		 customer.setPassport("5677884");
+		 customer.setCustomerStatus(CustomerStatus.BLOCKED);
 		 
 		 List<Room> rooms = new ArrayList<>();
 		 Room room= new Room();
-		 room.setFloor("2");
-		 room.setRoomNumber("44");
+		 room.setRoomName("Test");
+		 room.setDescription("Test Audit");
+		 room.setFloor("10");
+		 room.setRoomNumber("33");
+		 room.setPrice((double)23);
+		 room.setRoomStatus(RoomStatus.CHECK_IN);
+		 room.setMaxGuest(2);
 		 rooms.add(room);
 		 
 		 Reservation  reservation =  new Reservation();

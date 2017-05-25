@@ -1,5 +1,6 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,17 +10,25 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class UserCredential {
+public class UserCredential implements Serializable {
 
 	@Id
 	@Column(name = "username", nullable = false, unique = true, length = 127)
+	@NotEmpty
+	@Min(value = 4)
 	private String username;
 	
 	@Column(name = "password")
+	@NotEmpty
+	@Min(value = 5, message = "{Min.password}")
 	private String password;
 	
+	@NotEmpty
 	private String verifyPassword;
 	
 	@Column(name = "enabled")

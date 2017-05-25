@@ -1,5 +1,6 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,31 +14,44 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
-public class User {
+public class User implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(name = "firstName")
+	@NotEmpty
+	@Range(min = 2, max = 255, message = "{Range.field}")	
 	private String firstName;
 	
 	@Column(name = "lastName")
+	@NotEmpty
+	@Range(min = 2, max = 255, message = "{Range.field}")
 	private String lastName;
 	
 	@Column(name = "email")
+	@Email
 	private String email;
 	
 	@Column(name = "ranking")
+	@NotNull
 	private Integer ranking;
 	
 	@Column(name = "admin")
 	private boolean admin;
 	
-	@OneToOne(fetch=FetchType.LAZY,  cascade = CascadeType.ALL) 
+	@OneToOne(fetch=FetchType.LAZY,  cascade = {CascadeType.MERGE}) 
 	@JoinColumn(name="userId") 
+	@Valid
 	private UserCredential userCredential;
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy="user")

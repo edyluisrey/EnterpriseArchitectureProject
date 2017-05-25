@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import edu.mum.dao.RoomTypeDao;
 import edu.mum.domain.RoomType;
 import edu.mum.service.RoomTypeService;
+import edu.mum.validation.ServiceValidation;
 
 @Service
 @Transactional
@@ -19,11 +20,13 @@ public class RoomTypeServiceImpl implements RoomTypeService {
 	private RoomTypeDao RoomTypeDao;
 	
 	@Override
+	@ServiceValidation
 	public void save(RoomType RoomType) {
 		RoomTypeDao.save(RoomType);
 	}
 
 	@Override
+	@ServiceValidation
 	public void update(RoomType RoomType) {
 		RoomTypeDao.update(RoomType);
 	}
