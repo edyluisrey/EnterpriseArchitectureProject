@@ -116,9 +116,12 @@ public class TestServiceLayer {
 		RoomType familyType = new RoomType();
 		familyType.setRoomTypeName("Family");
 		RoomType doubleType = new RoomType();
-		doubleType.setRoomTypeName("Double");		
+		doubleType.setRoomTypeName("Double");	
+		System.out.println("*********** Saving RoomType **********");
 		roomTypeService.save(familyType);
 		roomTypeService.save(doubleType);
+		System.out.println("Room type : " + familyType.getRoomTypeName());
+		System.out.println("Room type : " + doubleType.getRoomTypeName());
 
 		// Room saving
 		Room r001 = new Room();
@@ -132,8 +135,11 @@ public class TestServiceLayer {
 		familyType.getRooms().add(r001);
 		familyType.getRooms().add(r002);
 		try {
+			System.out.println("********** Update RoomType and Save Room *********");
 			roomTypeService.update(familyType);
-			roomTypeService.update(doubleType);			
+			roomTypeService.update(doubleType);
+			System.out.println("Room to be saved : " + r001.getRoomName());
+			System.out.println("Room to be saved : " + r002.getRoomName());
 		} catch (ValidationException e) {
 			System.out.println("Validation fail!!!");
 			printValidationErrors(e);
@@ -141,8 +147,10 @@ public class TestServiceLayer {
 			e.printStackTrace();
 		}
 		
+		// Print out number of rooms which is related to room type with id 1
 		RoomType family = roomTypeService.findRoomTypeById((long)1);
-		System.out.println("room in room type is  " + family.getRooms().size());
+		System.out.println("************ Number of room is room type id = 1 **************");
+		System.out.println("Number of room in room type " + family.getRoomTypeName() + " is " + family.getRooms().size());
 				
 		// Add customer into system
 		 Customer  customer = new Customer();
@@ -150,7 +158,9 @@ public class TestServiceLayer {
 		 customer.setLastName("Aguirre Rest");
 		 customer.setPassport("5677884");
 		 try {
+			 System.out.println("********** Saving customer ************");
 			 customerService.save(customer);			 
+			 System.out.println("Customer to be saved is " + customer.getFirstName() + " " + customer.getLastName());
 		 } catch(ValidationException e) {
 			 System.out.println("Save customer fail!!!");
 			 printValidationErrors(e);
@@ -167,11 +177,15 @@ public class TestServiceLayer {
 		 reservation.setRooms(rooms);
 		 reservation.setCheckInDate(new Date());
 		 //reservationService.save(reservation);
+		 System.out.println("********** Update customer and save reservation ***********");
 		 customerService.update(customer);
+		 System.out.println("Customer to be update is " + customer.getFirstName() + " " + customer.getLastName());
+		 System.out.println("Reservation will be checkin on " + reservation.getCheckInDate().toString());
 		 
 		 // Load customer with id 1
+		 System.out.println("************ Customer Reservation **************");
 		 Customer cus1 = customerService.findCustomerById((long)1);
-		 System.out.println("size of room booking is " + cus1.getReservations().size());
+		 System.out.println("Number of reservation for customer " + cus1.getFirstName() + " " + cus1.getLastName() + " is " + cus1.getReservations().size());
 	}
 	
 	/**
