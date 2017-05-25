@@ -1,5 +1,7 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,7 @@ import javax.validation.constraints.Min;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Authority {
+public class Authority implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

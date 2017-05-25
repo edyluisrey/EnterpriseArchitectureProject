@@ -1,5 +1,7 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +16,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
-public class Address {
+public class Address implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

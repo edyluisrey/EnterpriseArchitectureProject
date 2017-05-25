@@ -12,6 +12,7 @@ import edu.mum.dao.RoomDao;
 import edu.mum.domain.Room;
 import edu.mum.service.RoomService;
 import edu.mum.service.RoomTypeService;
+import edu.mum.validation.ServiceValidation;
 
 @Service
 @Transactional
@@ -22,12 +23,14 @@ public class RoomServiceImpl implements RoomService {
 	
 	@Auditor
 	@Override
+	@ServiceValidation
 	public void save(Room room) {
 		RoomDao.save(room);
 	}
     
 	@Auditor
 	@Override
+	@ServiceValidation
 	public void update(Room room) {
 		RoomDao.update(room);
 	}

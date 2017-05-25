@@ -1,5 +1,6 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class RoomType {
+public class RoomType implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

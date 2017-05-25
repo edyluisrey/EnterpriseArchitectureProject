@@ -1,5 +1,6 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ import javax.validation.constraints.NotNull;
 import edu.mum.domain.status.ReservationStatus;
 
 @Entity
-public class Reservation {
+public class Reservation implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

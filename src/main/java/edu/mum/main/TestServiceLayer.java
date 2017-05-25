@@ -1,16 +1,16 @@
 package edu.mum.main;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.springframework.validation.FieldError;
 
 import edu.mum.domain.Address;
 import edu.mum.domain.Authority;
@@ -21,8 +21,7 @@ import edu.mum.domain.Room;
 import edu.mum.domain.RoomType;
 import edu.mum.domain.User;
 import edu.mum.domain.UserCredential;
-import edu.mum.domain.status.CustomerStatus;
-import edu.mum.domain.status.ReservationStatus;
+import edu.mum.exception.ValidationException;
 import edu.mum.security.AuthenticateUser;
 import edu.mum.service.CustomerService;
 import edu.mum.service.GroupService;
@@ -30,7 +29,6 @@ import edu.mum.service.ReservationService;
 import edu.mum.service.RoomService;
 import edu.mum.service.RoomTypeService;
 import edu.mum.service.UserService;
-import edu.mum.service.impl.GroupServiceImpl;
 
 @Component
 public class TestServiceLayer {
@@ -49,6 +47,9 @@ public class TestServiceLayer {
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	MessageSourceAccessor messageAccessor;
 	
 	@Autowired
 	private ReservationService reservationService;
@@ -108,8 +109,6 @@ public class TestServiceLayer {
 		userService.save(user);
 		//userService.update(user);
 		
-		
-		
 	}
 	
 	public void testAddDefaultData() {
@@ -132,8 +131,15 @@ public class TestServiceLayer {
 		r002.setRoomType(familyType);
 		familyType.getRooms().add(r001);
 		familyType.getRooms().add(r002);
-		roomTypeService.update(familyType);
-		roomTypeService.update(doubleType);
+		try {
+			roomTypeService.update(familyType);
+			roomTypeService.update(doubleType);			
+		} catch (ValidationException e) {
+			System.out.println("Validation fail!!!");
+			printValidationErrors(e);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		RoomType family = roomTypeService.findRoomTypeById((long)1);
 		System.out.println("room in room type is  " + family.getRooms().size());
@@ -143,7 +149,14 @@ public class TestServiceLayer {
 		 customer.setFirstName("Edy");
 		 customer.setLastName("Aguirre Rest");
 		 customer.setPassport("5677884");
-		 customerService.save(customer);
+		 try {
+			 customerService.save(customer);			 
+		 } catch(ValidationException e) {
+			 System.out.println("Save customer fail!!!");
+			 printValidationErrors(e);
+		 } catch (Exception e) {
+				e.printStackTrace();
+		 }
 		 
 		 // Reservation saving
 		 List<Room> rooms = new ArrayList<>();
@@ -161,6 +174,23 @@ public class TestServiceLayer {
 		 System.out.println("size of room booking is " + cus1.getReservations().size());
 	}
 	
+	/**
+	 * This method is used to print all validation error messages in console
+	 * @param e
+	 */
+	public void printValidationErrors(ValidationException e) {
+		String text = " \n";
+		List<FieldError> fieldErrors = e.getErrors().getFieldErrors();
+		for (FieldError fieldError : fieldErrors) {
+			text += messageAccessor.getMessage(fieldError) + "\n";
+			System.err.println(text);
+		}
+	}
+	
+	/**
+	 * Main class to run
+	 * @param args
+	 */
 	public static void main(String[] args) {
 			
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(
@@ -177,7 +207,7 @@ public class TestServiceLayer {
 		  		// TODO Auto-generated catch block
 		  		e.printStackTrace();
 		  	}
-		    test.testAddDefaultData();
+			test.testAddDefaultData();		
 		    System.out.println("Test Saving group and related fields!!!");
 		}    
 	}

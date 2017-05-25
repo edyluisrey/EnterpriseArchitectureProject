@@ -1,5 +1,6 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import javax.validation.constraints.Min;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class UserCredential {
+public class UserCredential implements Serializable {
 
 	@Id
 	@Column(name = "username", nullable = false, unique = true, length = 127)

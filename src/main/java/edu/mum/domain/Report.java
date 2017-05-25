@@ -1,8 +1,9 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Report {
+public class Report implements Serializable {
 	
 	private Date date;
 	private int id;

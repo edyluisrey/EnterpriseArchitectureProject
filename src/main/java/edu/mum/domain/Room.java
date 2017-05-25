@@ -1,5 +1,6 @@
 package edu.mum.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ import org.hibernate.validator.constraints.Range;
 import edu.mum.domain.status.RoomStatus;
 
 @Entity
-public class Room {
+public class Room implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
