@@ -34,12 +34,12 @@ public class Room implements Serializable {
 
 	@Column(name = "roomName")
 	@NotEmpty
-	@Range(min = 1, max = 255, message = "{Range.field}")
+	//@Range(min = 1, max = 255, message = "{Range.field}")
 	private String roomName;
 	
 	@Column(name = "roomNumber")
 	@NotEmpty
-	@Range(min = 1, max = 5, message = "{Range.field}")
+	//@Range(min = 1, max = 5, message = "{Range.field}")
 	private String roomNumber;
 	
 	@Column(name = "floor")

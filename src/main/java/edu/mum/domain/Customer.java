@@ -51,7 +51,7 @@ public class Customer implements Serializable {
 	
 	@OneToOne(fetch=FetchType.EAGER,  cascade = CascadeType.ALL) 
 	@JoinColumn(name="customerId") 
-	@Valid
+	//@Valid
 	private Address address;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})

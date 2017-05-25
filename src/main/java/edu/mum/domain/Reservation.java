@@ -30,18 +30,18 @@ public class Reservation implements Serializable {
 	private Long id;
 	
 	@Column(name = "checkInDate")
-	@NotNull
+	//@NotNull
 	private Date checkInDate;
 	
 	@Column(name = "checkOutDate")
-	@NotNull
+	//@NotNull
 	private Date checkOutDate;
 	
 	@Column(name = "description", length = 255)
 	private String description;
 	
 	@Column(name = "reservationStatus")
-	@NotNull
+	//@NotNull
 	private ReservationStatus reservationStatus;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
@@ -51,7 +51,7 @@ public class Reservation implements Serializable {
 	@JoinTable(name = "reservation_room", joinColumns = {
 			@JoinColumn(name = "reservation_id")}, 
 			inverseJoinColumns = {@JoinColumn(name = "room_id")})
-	@NotNull
+	//@NotNull
 	private List<Room> rooms = new ArrayList<>();
 
 	public Reservation() {
