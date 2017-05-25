@@ -136,8 +136,10 @@ public class TestServiceLayer {
 		familyType.getRooms().add(r002);
 		try {
 			System.out.println("********** Update RoomType and Save Room *********");
-			roomTypeService.update(familyType);
-			roomTypeService.update(doubleType);
+			//roomTypeService.update(familyType);
+			//roomTypeService.update(doubleType);
+			roomService.save(r001);
+			roomService.save(r002);
 			System.out.println("Room to be saved : " + r001.getRoomName());
 			System.out.println("Room to be saved : " + r002.getRoomName());
 		} catch (ValidationException e) {
