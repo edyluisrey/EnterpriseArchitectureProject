@@ -15,6 +15,7 @@ import edu.mum.domain.Room;
 import edu.mum.domain.status.CustomerStatus;
 import edu.mum.domain.status.RoomStatus;
 import edu.mum.rest.client.service.ReservationRestService;
+import edu.mum.service.CustomerService;
 import edu.mum.service.ReservationService;
 
 @Component
@@ -25,6 +26,9 @@ public class TestRestFull {
 	
 	@Autowired
 	ReservationRestService reservationRestService;
+	
+	@Autowired
+	CustomerService customerService;
 	
 	public static void main(String[] args) {
 		 ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
@@ -39,7 +43,6 @@ public class TestRestFull {
 		 customer.setFirstName("Edy");
 		 customer.setLastName("Aguirre Rest");
 		 customer.setPassport("5677884");
-		 customer.setCustomerStatus(CustomerStatus.BLOCKED);
 		 
 		 List<Room> rooms = new ArrayList<>();
 		 Room room= new Room();
@@ -48,7 +51,6 @@ public class TestRestFull {
 		 room.setFloor("10");
 		 room.setRoomNumber("33");
 		 room.setPrice((double)23);
-		 room.setRoomStatus(RoomStatus.CHECK_IN);
 		 room.setMaxGuest(2);
 		 rooms.add(room);
 		 
@@ -56,10 +58,12 @@ public class TestRestFull {
 		 reservation.setCustomer(customer);
 		 reservation.setRooms(rooms);
 		 reservation.setCheckInDate(new Date());
+		 //reservationService.save(reservation);
 		 
 		 System.out.println( "   **********  RESTFULL WITH SECURITY  **********");
 		 System.out.println( "        ********** REST: Create  Reservation**********");
-		 reservationRestService.save(reservation);
+		 //reservationRestService.save(reservation);
+		 customerService.save(customer);
 		 System.out.println( "  ok");
 		 
 		 System.out.println( "        ********** REST: List Reservations  **********");

@@ -58,15 +58,15 @@ public class Room implements Serializable {
 	private Double price;
 	
 	@Column(name = "roomStatus")
-	@NotNull
+	//@NotNull
 	private RoomStatus roomStatus;
 	
 	@Column(name = "maxGuest")
 	@NotNull
 	private Integer maxGuest;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
-	@Valid
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	//@Valid
 	private RoomType roomType;
 	
 	public Room() {

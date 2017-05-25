@@ -47,7 +47,7 @@ public class Reservation implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
 	private Customer customer;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinTable(name = "reservation_room", joinColumns = {
 			@JoinColumn(name = "reservation_id")}, 
 			inverseJoinColumns = {@JoinColumn(name = "room_id")})

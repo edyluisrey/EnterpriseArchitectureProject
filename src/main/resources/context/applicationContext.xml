@@ -35,7 +35,7 @@
 				<prop key="use_sql_comments">${use_sql_comments}</prop>
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 				<prop key="hibernate.hbm2ddl.import_files">populate.sql</prop>
-				<prop key="javax.persistence.validation.mode">${validation.mode}</prop>		
+<!-- 				<prop key="javax.persistence.validation.mode">${validation.mode}</prop>		 -->
 			</props>
 		</property>
 	</bean>

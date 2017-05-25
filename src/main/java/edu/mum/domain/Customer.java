@@ -46,7 +46,7 @@ public class Customer implements Serializable {
 	
 	@Column(name = "passport")
 	@NotEmpty
-	@Min(value = 10)
+	//@Min(value = 10)
 	private String passport;
 	
 	@OneToOne(fetch=FetchType.EAGER,  cascade = CascadeType.ALL) 
@@ -58,7 +58,7 @@ public class Customer implements Serializable {
 	private List<Reservation> reservations = new ArrayList<>();
 	
 	@Column(name = "customerStatus")
-	@NotNull
+	//@NotNull
 	private CustomerStatus customerStatus;
 
 	public Customer() {
