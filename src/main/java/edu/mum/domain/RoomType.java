@@ -10,8 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class RoomType {
@@ -21,13 +24,14 @@ public class RoomType {
 	private Long id;
 	
 	@Column(name = "roomTypeName")
+	@NotEmpty
 	private String roomTypeName;
 	
 	@Column(name = "description")
 	private String description;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	private List<Room> rooms = new ArrayList<>();
+	private List<Room> rooms = new ArrayList<Room>();
 
 	public RoomType() {
 		super();

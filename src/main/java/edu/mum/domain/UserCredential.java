@@ -9,17 +9,25 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class UserCredential {
 
 	@Id
 	@Column(name = "username", nullable = false, unique = true, length = 127)
+	@NotEmpty
+	@Min(value = 4)
 	private String username;
 	
 	@Column(name = "password")
+	@NotEmpty
+	@Min(value = 5, message = "{Min.password}")
 	private String password;
 	
+	@NotEmpty
 	private String verifyPassword;
 	
 	@Column(name = "enabled")

@@ -1,5 +1,8 @@
 package edu.mum.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +10,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 import edu.mum.domain.status.RoomStatus;
 
@@ -19,12 +32,18 @@ public class Room {
 	private Long id;
 
 	@Column(name = "roomName")
+	@NotEmpty
+	@Range(min = 1, max = 255, message = "{Range.field}")
 	private String roomName;
 	
 	@Column(name = "roomNumber")
+	@NotEmpty
+	@Range(min = 1, max = 5, message = "{Range.field}")
 	private String roomNumber;
 	
 	@Column(name = "floor")
+	@NotEmpty
+	@Size(min = 1, max = 5, message = "{Size.field}")
 	private String floor;
 	
 	@Column(name = "building")
@@ -34,17 +53,21 @@ public class Room {
 	private String description;
 	
 	@Column(name = "price")
+	@NotNull
 	private Double price;
 	
 	@Column(name = "roomStatus")
+	@NotNull
 	private RoomStatus roomStatus;
 	
 	@Column(name = "maxGuest")
+	@NotNull
 	private Integer maxGuest;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+	@Valid
 	private RoomType roomType;
-
+	
 	public Room() {
 		super();
 	}
@@ -128,5 +151,5 @@ public class Room {
 	public void setRoomType(RoomType roomType) {
 		this.roomType = roomType;
 	}
-	
+
 }

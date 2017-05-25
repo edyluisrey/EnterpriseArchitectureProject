@@ -113,14 +113,15 @@ public class TestServiceLayer {
 	}
 	
 	public void testAddDefaultData() {
+		// RoomType saving
 		RoomType familyType = new RoomType();
 		familyType.setRoomTypeName("Family");
 		RoomType doubleType = new RoomType();
-		doubleType.setRoomTypeName("Double");
-		
+		doubleType.setRoomTypeName("Double");		
 		roomTypeService.save(familyType);
 		roomTypeService.save(doubleType);
-//		
+
+		// Room saving
 		Room r001 = new Room();
 		r001.setRoomName("001");
 		r001.setPrice(50.0);
@@ -128,41 +129,44 @@ public class TestServiceLayer {
 		Room r002 = new Room();
 		r002.setRoomName("002");
 		r002.setPrice(25.0);
-		r002.setRoomType(doubleType);
-		roomService.save(r001);
-		roomService.save(r002);	
+		r002.setRoomType(familyType);
+		familyType.getRooms().add(r001);
+		familyType.getRooms().add(r002);
+		roomTypeService.update(familyType);
+		roomTypeService.update(doubleType);
 		
-		// Get room type
-		//RoomType roomType = roomTypeService.findRoomTypeById((long)1);
-		//System.out.println("Number of room for roomType Family is " + roomType.getRoomTypeName());
-		
+		RoomType family = roomTypeService.findRoomTypeById((long)1);
+		System.out.println("room in room type is  " + family.getRooms().size());
+				
+		// Add customer into system
 		 Customer  customer = new Customer();
 		 customer.setFirstName("Edy");
 		 customer.setLastName("Aguirre Rest");
 		 customer.setPassport("5677884");
+		 customerService.save(customer);
 		 
+		 // Reservation saving
 		 List<Room> rooms = new ArrayList<>();
-//		 Room room= new Room();
-//		 room.setFloor("2");
-//		 room.setRoomNumber("44");
 		 Room room = roomService.findRoomById((long)1);
-		 rooms.add(room);
-		 
+		 rooms.add(room);		 
 		 Reservation  reservation =  new Reservation();
 		 reservation.setCustomer(customer);
 		 reservation.setRooms(rooms);
 		 reservation.setCheckInDate(new Date());
-		 reservationService.save(reservation);
+		 //reservationService.save(reservation);
+		 customerService.update(customer);
+		 
+		 // Load customer with id 1
+		 Customer cus1 = customerService.findCustomerById((long)1);
+		 System.out.println("size of room booking is " + cus1.getReservations().size());
 	}
 	
 	public static void main(String[] args) {
 			
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(
-		        "context/applicationContext.xml", "context/mail-config.xml" ,"context/batch-config.xml" ,"context/user-job.xml", "context/security-Context.xml" );
-//		ApplicationContext ctx = new ClassPathXmlApplicationContext(
-//		        "context/applicationContext.xml", "context/security-context.xml" );
+		        "context/applicationContext.xml", "context/security-Context.xml" );
 
-		 AuthenticationManager authenticationManager = (AuthenticationManager) ctx.getBean("authenticationManager");
+		AuthenticationManager authenticationManager = (AuthenticationManager) ctx.getBean("authenticationManager");
 		TestServiceLayer test = (TestServiceLayer)ctx.getBean("testServiceLayer");
 		//test.testUserAuthenticationSaving();
 		while (true) {    
