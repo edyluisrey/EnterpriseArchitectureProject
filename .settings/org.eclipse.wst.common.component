@@ -6,6 +6,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/sql"/>
         <property name="java-output-path" value="/MemberSpringMVCSecurity/target/classes"/>
-        <property name="context-root" value="EnterpriseArchitectureProject"/>
+        <property name="context-root" value="HotelReservation"/>
     </wb-module>
 </project-modules>

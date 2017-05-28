@@ -23,21 +23,21 @@ public class Address implements Serializable {
 	private Long id;
 	
 	@Column(name = "street", length = 255)
-	@NotEmpty
+	//@NotEmpty
 	private String street;
 	
 	@Column(name = "zipCode", length = 9)
-	@NotEmpty
-	@Range(min = 5, max = 9, message = "{Range.zipCode}")
+	//@NotEmpty
+	//@Range(min = 5, max = 9, message = "{Range.zipCode}")
 	private String zipCode;
 	
 	@Column(name = "city", length = 255)
-	@NotEmpty
+	//@NotEmpty
 	private String city;
 	
 	@Column(name = "state", length = 255)
-	@NotEmpty
-	@Min(value = 2, message = "{Size.state}")
+	//@NotEmpty
+	//@Min(value = 2, message = "{Size.state}")
 	private String state;
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
