@@ -23,6 +23,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import edu.mum.domain.status.RoomStatus;
 
 @Entity
@@ -67,6 +69,7 @@ public class Room implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	//@Valid
+	@JsonIgnore
 	private RoomType roomType;
 	
 	public Room() {

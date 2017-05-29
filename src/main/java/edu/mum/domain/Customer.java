@@ -22,6 +22,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import edu.mum.domain.status.CustomerStatus;
 
 @Entity
@@ -52,6 +54,7 @@ public class Customer implements Serializable {
 	@OneToOne(fetch=FetchType.EAGER,  cascade = CascadeType.ALL) 
 	@JoinColumn(name="customerId") 
 	//@Valid
+	@JsonIgnore
 	private Address address;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})

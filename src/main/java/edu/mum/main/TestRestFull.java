@@ -58,19 +58,16 @@ public class TestRestFull {
 		 reservation.setCustomer(customer);
 		 reservation.setRooms(rooms);
 		 reservation.setCheckInDate(new Date());
-		 //reservationService.save(reservation);
 		 
 		 System.out.println( "   **********  RESTFULL WITH SECURITY  **********");
 		 System.out.println( "        ********** REST: Create  Reservation**********");
-		 //reservationRestService.save(reservation);
-		 customerService.save(customer);
+		 reservationRestService.save(reservation);
 		 System.out.println( "  ok");
 		 
 		 System.out.println( "        ********** REST: List Reservations  **********");
 		 List<Reservation> listReservation = (List<Reservation> ) reservationRestService.findAll();
 		 for(Reservation tempReservation: listReservation){
-			 System.out.println("*** Reserved for:"+ tempReservation.getCustomer().getFirstName() + 
-					 " "+ tempReservation.getCustomer().getLastName()+ " Room:"+ tempReservation.getRooms().get(0).getRoomNumber());
+			 System.out.println("*** Reservation Id:"+ tempReservation.getId() + " :"+ tempReservation.getCheckInDate());
 		 }
 	}
 
